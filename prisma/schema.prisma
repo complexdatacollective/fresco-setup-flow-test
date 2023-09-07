@@ -71,7 +71,7 @@ model VerificationToken {
 
 
 model SetupMetadata {
-  id        String   @id @default(cuid())
+  id        Int   @id
   configured Boolean  @default(false)
   initializedAt DateTime @default(now())
   configuredAt DateTime? 
