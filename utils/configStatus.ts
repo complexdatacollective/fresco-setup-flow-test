@@ -1,7 +1,19 @@
 import { prisma } from "~/utils/db";
 
 export default async function configStatus(): Promise<string> {
-  const setupMetadata = await prisma.setupMetadata.findFirst();
+  let setupMetadata = await prisma.setupMetadata.findFirst();
+
+  if (!setupMetadata) {
+    console.log("no setupMetadata found, seeding...");
+    setupMetadata = await prisma.setupMetadata.create({
+      data: {
+        configured: false,
+        initializedAt: new Date(),
+      },
+    });
+    console.log("Seeded setupMetadata");
+  }
+
   const isExpired = false; // todo: check if expired (> 5 minutes since initializedAt)
 
   // not configured, not expired
