@@ -1,9 +1,8 @@
 import { redirect } from "next/navigation";
 import configStatus from "~/utils/configStatus";
 
-const status = await configStatus();
-
-export default function Home() {
+export default async function Home() {
+  const status = await configStatus();
   if (!status.configured) {
     console.log("Not configured, redirecting to setup", status);
     redirect("/setup");
