@@ -3,6 +3,7 @@ import { prisma } from "~/utils/db";
 
 export default async function configStatus(): Promise<SetupMetadata> {
   let setupMetadata = await prisma.setupMetadata.findFirst();
+  console.log("setupMetadata found in query...", setupMetadata);
 
   // if no setup metadata exists, seed it
   if (!setupMetadata) {
@@ -13,6 +14,7 @@ export default async function configStatus(): Promise<SetupMetadata> {
         initializedAt: new Date(),
       },
     });
+    console.log("setupMetadata just seeded...", setupMetadata);
   }
 
   return setupMetadata;

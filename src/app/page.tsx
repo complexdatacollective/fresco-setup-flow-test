@@ -5,6 +5,7 @@ const status = await configStatus();
 
 export default function Home() {
   if (!status.configured) {
+    console.log("Not configured, redirecting to setup", status);
     redirect("/setup");
   }
   return (
